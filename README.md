@@ -8,3 +8,5 @@ npm install && npm pack
 cd ../examples/my-app
 npm install && npm start
 ```
+
+Or use npm link
