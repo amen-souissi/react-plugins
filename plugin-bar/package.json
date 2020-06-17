@@ -45,6 +45,7 @@
     "husky": "~4.2.5",
     "isomorphic-fetch": "~2.2.1",
     "jest": "~26.0.1",
+    "node-sass": "~4.14.1",
     "prettier": "~2.0.5",
     "prettier-check": "~2.0.0",
     "react": "~16.13.1",
@@ -55,7 +56,8 @@
     "typescript": "~3.9.5"
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && npm run build:scss",
+    "build:scss": "node-sass src/style/index.scss -o dist/style",
     "prepublish": "npm run build",
     "test": "npm run test:unit",
     "test:unit": "jest",
@@ -83,7 +85,10 @@
   "license": "Apache-2.0",
   "husky": {
     "hooks": {
-      "pre-commit": "npm test && npm run lint"
+      "pre-commit": "npm run lint"
     }
+  },
+  "dependencies": {
+    "axios": "~0.19.2"
   }
 }

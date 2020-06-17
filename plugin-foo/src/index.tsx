@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import * as React from "react";
 import { ReactPluginsContext } from "@decathlon/react-plugins-core";
 //@ts-ignore
@@ -13,7 +14,7 @@ const Plugin = () => {
     <div className="plugin">
       <TwitterTweetEmbed tweetId="1272952528188182529" />
       <button type="button" onClick={() => unsubscribePlugin(PLUGIN_ID)}>
-        Fermer
+        Fermer le plugin
       </button>
     </div>
   );

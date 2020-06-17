@@ -8,5 +8,5 @@ module.exports = {
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleDirectories: ["node_modules", "src"],
-  setupFilesAfterEnv: ["./test/polyfill/array.find.polyfill.js", "./test/tests.entry.js"]
+  setupFilesAfterEnv: ["./test/tests.entry.js"]
 };

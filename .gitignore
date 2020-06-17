@@ -27,11 +27,14 @@ lib-cov
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+/*/build/Release
 /*/dist/
 
 # Dependency directories
+/*/coverage
 /*/node_modules/
+# @TODO only for the POC
+/*/package-lock.json
 
 # Optional npm cache directory
 .npm

@@ -10,6 +10,7 @@ const nop = () => null;
 export interface Plugin {
   id: string;
   component: React.ComponentType;
+  // @todo add the state prop (is_active...)
 }
 
 export type Plugins = Record<string, Plugin>;
@@ -25,29 +26,32 @@ export interface IReactPluginsContext {
   actions: IPluginsActions;
 }
 
-export const ReactPluginsContext: React.Context<IReactPluginsContext> = React.createContext<IReactPluginsContext>({
+export interface IReactPluginsProviderProps {
+  children: JSX.Element;
+}
+
+const initialReactPluginContext: IReactPluginsContext = {
   plugins: {},
   actions: {
     setPlugins: nop,
     subscribePlugin: nop,
     unsubscribePlugin: nop
   }
-});
+};
 
-export interface IReactPluginsProviderProps {
-  children: JSX.Element;
-}
+export const ReactPluginsContext: React.Context<IReactPluginsContext> = React.createContext<IReactPluginsContext>(
+  initialReactPluginContext
+);
 
 const ReactPluginsProvider = ({ children }: IReactPluginsProviderProps) => {
-  const [state, dispatch] = React.useReducer(reactPluginsReducer, {
-    plugins: {}
-  });
-
-  React.useEffect(() => {
-    dispatch(setPlugins(PLUGINS));
-  }, [PLUGINS]);
+  const [state, dispatch] = React.useReducer(reactPluginsReducer, initialReactPluginContext);
 
   const actions = React.useMemo(() => mapDispatchToProps(dispatch), [dispatch]);
+
+  React.useEffect(() => {
+    actions.setPlugins(PLUGINS);
+  }, [PLUGINS]);
+
   return <ReactPluginsContext.Provider value={{ ...state, actions }}>{children}</ReactPluginsContext.Provider>;
 };
 
@@ -65,9 +69,12 @@ export default ReactPluginsProvider;
 export { default as reactPluginsReducer } from "./reducers";
 export * from "./reducers";
 
+/*
+ Setup all plugins. The plugins are located in the node_modules/@decathlon/plugin_* folders.
+ Each plugin has a setup.js file in the dist folder.
+**/
 function importAll(context: any) {
   context.keys().forEach(context);
 }
-
 // @ts-ignore
 importAll(require.context("../../", true, /plugin-.*\/dist\/setup.js$/));
