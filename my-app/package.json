@@ -6,6 +6,8 @@
     "@decathlon/plugin-bar": "file:../plugin-bar/decathlon-plugin-bar-1.0.0.tgz",
     "@decathlon/plugin-foo": "file:../plugin-foo/decathlon-plugin-foo-1.0.0.tgz",
     "@decathlon/react-plugins-core": "file:../react-plugins-core/decathlon-react-plugins-core-1.0.0.tgz",
+    "@material-ui/core": "~4.10.2",
+    "@material-ui/icons": "~4.9.1",
     "@testing-library/jest-dom": "~5.10.1",
     "@testing-library/react": "~10.2.1",
     "@testing-library/user-event": "~12.0.1",

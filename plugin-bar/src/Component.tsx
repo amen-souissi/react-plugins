@@ -1,9 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import * as React from "react";
 import axios from "axios";
-import { ReactPluginsContext } from "@decathlon/react-plugins-core";
-
-import { PLUGIN_ID } from ".";
 
 interface IHit {
   objectID: string;
@@ -14,11 +11,15 @@ interface IHit {
 interface IData {
   hits: IHit[];
 }
-const Component = () => {
-  const {
-    actions: { unsubscribePlugin }
-  } = React.useContext(ReactPluginsContext);
 
+interface IProps {
+  text: string;
+}
+
+const defaultText =
+  "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
+
+const Component = ({ text }: IProps) => {
   const [data, setData] = React.useState<IData>({ hits: [] });
   const [search, setSearch] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -34,14 +35,11 @@ const Component = () => {
   }, [search]);
 
   return (
-    <div className="plugin custom-plugin">
+    <div className="custom-plugin">
       <div>
-        <b>Custom plugin with css,fetch and lazy loading:</b> is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-        typesetting, remaining essentially unchanged.
+        <b>Custom plugin with css,fetch and lazy loading:</b> {text || defaultText}
       </div>
-      <input type="text" value={search} onChange={event => setSearch(event.target.value)} />
+      <input type="text" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search" />
       {isLoading ? (
         <div>Loading ...</div>
       ) : (
@@ -53,9 +51,6 @@ const Component = () => {
           ))}
         </ul>
       )}
-      <button type="button" onClick={() => unsubscribePlugin(PLUGIN_ID)}>
-        Fermer le plugin
-      </button>
     </div>
   );
 };

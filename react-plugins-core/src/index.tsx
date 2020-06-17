@@ -9,7 +9,7 @@ const nop = () => null;
 
 export interface Plugin {
   id: string;
-  component: React.ComponentType;
+  component: React.ComponentType<any>;
   // @todo add the state prop (is_active...)
 }
 

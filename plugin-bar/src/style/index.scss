@@ -1,6 +1,7 @@
 .custom-plugin {
-  background-color: white;
-  color: teal;
+  color: gray;
+  display: flex;
+  flex-direction: column;
 
   ul {
     max-height: 150px;

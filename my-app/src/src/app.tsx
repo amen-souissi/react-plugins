@@ -1,13 +1,22 @@
 import * as React from "react";
 import { ReactPluginsContext, IReactPluginsContext } from "@decathlon/react-plugins-core";
+import PluginCard from "./card";
 
-const Root = () => {
+interface IProps {
+  appProps: any;
+}
+
+const Root = ({ appProps }: IProps) => {
   return (
     <ReactPluginsContext.Consumer>
-      {(props: IReactPluginsContext) => {
-        return Object.values(props.plugins).map((plugin) => {
-          const Plugin = plugin.component;
-          return <Plugin />;
+      {({ plugins, actions: { unsubscribePlugin } }: IReactPluginsContext) => {
+        return Object.values(plugins).map((plugin) => {
+          const Plugin = plugin.component as React.ComponentType<any>;
+          return (
+            <PluginCard title={plugin.id} onClose={() => unsubscribePlugin(plugin.id)}>
+              <Plugin appProps={appProps} />
+            </PluginCard>
+          );
         });
       }}
     </ReactPluginsContext.Consumer>

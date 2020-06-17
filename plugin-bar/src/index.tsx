@@ -6,10 +6,14 @@ const Component = React.lazy(() => import("./Component"));
 
 export const PLUGIN_ID = "bar";
 
-const Plugin = () => {
+interface IProps {
+  appProps: any;
+}
+
+const Plugin = ({ appProps }: IProps) => {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <Component />
+      <Component text={appProps.text} />
     </React.Suspense>
   );
 };
